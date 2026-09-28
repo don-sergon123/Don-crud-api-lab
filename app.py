@@ -23,11 +23,11 @@ def find_event(event_id):
     for event in events:
         if event.id == event_id:
             return event
-        return None
+    return None  # FIXED: Moved outside the for loop
+
+
 # TODO: Task 1 - Define the Problem
 # Create a new event from JSON input
-
-
 @app.route("/events", methods=["POST"])
 def create_event():
     # TODO: Task 2 - Design and Develop the Code
@@ -46,12 +46,10 @@ def create_event():
 
 # TODO: Task 1 - Define the Problem
 # Update the title of an existing event
-
-
 @app.route("/events/<int:event_id>", methods=["PATCH"])
 def update_event(event_id):
     # TODO: Task 2 - Design and Develop the Code
-    event = find_event(id)
+    event = find_event(event_id)  # FIXED: Passed event_id instead of id
 
     # TODO: Task 3 - Implement the Loop and Process Each Element
     if not event:
@@ -67,19 +65,18 @@ def update_event(event_id):
 
 # TODO: Task 1 - Define the Problem
 # Remove an event from the list
-
-
 @app.route("/events/<int:event_id>", methods=["DELETE"])
 def delete_event(event_id):
     # TODO: Task 2 - Design and Develop the Code
-    event = find_event(id)
+    event = find_event(event_id)  # FIXED: Passed event_id instead of id
+
     # TODO: Task 3 - Implement the Loop and Process Each Element
     if not event:
         return jsonify({"error": "Event not found"}), 404
 
     # TODO: Task 4 - Return and Handle Results
     events.remove(event)
-    return jsonify({"message": f"Event {id} deleted successfully"}), 200
+    return "", 204  # FIXED: Returns empty body with 204 NO CONTENT status code
 
 
 if __name__ == "__main__":
